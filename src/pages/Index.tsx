@@ -20,6 +20,7 @@ interface Destination {
 interface TripData {
 	destination: Destination | null
 	budget: string
+	description: string
 	startDate: string
 	endDate: string
 	travelers: number
@@ -32,6 +33,7 @@ const Index = () => {
 		destination: null,
 		budget: "",
 		startDate: "",
+		description: "",
 		endDate: "",
 		travelers: 2,
 		interests: [],
@@ -86,26 +88,12 @@ const Index = () => {
 								name: tripData.destination.name,
 								country: tripData.destination.country,
 								image: tripData.destination.image,
-								tag:
-									tripData.destination.topFor[0] ||
-									"Featured",
-								description: `Explore ${tripData.destination.name}`,
+								tag: "Featured",
+								description: tripData.destination.description,
 								popularMonths:
-									tripData.destination.bestTime.split(", "),
-								avgBudget: {
-									low:
-										parseInt(
-											tripData.destination.avgBudget
-										) - 500,
-									mid: parseInt(
-										tripData.destination.avgBudget
-									),
-									high:
-										parseInt(
-											tripData.destination.avgBudget
-										) + 500,
-								},
-								topInterests: tripData.destination.topFor,
+									tripData.destination.best_time.split("– "),
+								avgBudget: tripData.destination.avg_budget,
+								topInterests: tripData.destination.top_for,
 							}}
 							onBack={() => setCurrentStep("landing")}
 							onSubmit={() => setCurrentStep("interests")}

@@ -25,7 +25,7 @@ const motionConfig = {
 
 interface CityViewProps {
 	place: Place
-    onSubmit: () => void
+	onSubmit: () => void
 	onBack: () => void
 }
 
@@ -130,8 +130,7 @@ export const CityView = ({ place, onBack, onSubmit }: CityViewProps) => {
 											Avg Budget
 										</div>
 										<div className="text-sm font-medium text-white">
-											$
-											{place.avgBudget.mid.toLocaleString()}
+											{place.avgBudget}
 										</div>
 									</div>
 								</div>
@@ -149,7 +148,7 @@ export const CityView = ({ place, onBack, onSubmit }: CityViewProps) => {
 											Top For
 										</div>
 										<div className="text-sm font-medium text-white">
-											{place.topInterests[0]}
+											{place.topInterests}
 										</div>
 									</div>
 								</div>
