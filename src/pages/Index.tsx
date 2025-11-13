@@ -12,9 +12,10 @@ interface Destination {
 	name: string
 	country: string
 	image: string
-	bestTime: string
-	avgBudget: string
-	topFor: string[]
+	description: string
+	best_time: string
+	avg_budget: string
+	top_for: string
 }
 
 interface TripData {

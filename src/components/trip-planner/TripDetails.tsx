@@ -1,7 +1,6 @@
 import { useState } from "react"
 import type { BookingState } from "@/types/TripDetailsType"
-import { BUDGET_OPTIONS } from "@/types/tripConstants"
-import { Calendar, DollarSign, Users, Check, IndianRupee } from "lucide-react"
+import { Calendar, Users, IndianRupee } from "lucide-react"
 import { Input } from "../ui/input"
 
 interface BookingPanelProps {
@@ -132,7 +131,7 @@ export const BookingPanel = ({
 							aria-label="Decrease travelers">
 							−
 						</button>
-						<span className="text-lg font-semibold text-gray-900 min-w-[3rem] text-center">
+						<span className="text-lg font-semibold text-gray-900 min-w-12 text-center">
 							{booking.travelers}
 						</span>
 						<button

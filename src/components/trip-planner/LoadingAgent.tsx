@@ -61,7 +61,6 @@ interface TripData {
 
 interface LoadingAgentProps {
 	tripData: TripData
-	// --- FIX 1: Added onComplete prop ---
 	onComplete: () => void
 }
 
@@ -82,7 +81,6 @@ const LoadingAgent = ({ tripData, onComplete }: LoadingAgentProps) => {
 	const orb1Controls = useAnimation()
 	const orb2Controls = useAnimation()
 	const orb3Controls = useAnimation()
-	const particleControls = useAnimation()
 	const bottomMessageControls = useAnimation()
 
 	// --- BETTER 4: Memoized particles array ---
