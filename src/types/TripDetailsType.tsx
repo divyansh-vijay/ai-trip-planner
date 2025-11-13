@@ -2,16 +2,13 @@ export interface Place {
 	id: string
 	name: string
 	tag: string
+	top_for: string
 	image: string
 	country: string
 	description: string
 	popularMonths: string[]
-	avgBudget: {
-		low: number
-		mid: number
-		high: number
-	}
-	topInterests: string[]
+	avgBudget: string
+	topInterests: string
 }
 
 export interface BookingState {
