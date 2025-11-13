@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { Search, MapPin } from "lucide-react"
-import { Input } from "@/components/ui/input"
 import baliImg from "@/assets/destinations/bali.jpg"
 import dubaiImg from "@/assets/destinations/dubai.jpg"
 import icelandImg from "@/assets/destinations/iceland.jpg"
@@ -95,12 +94,12 @@ interface LandingProps {
 }
 
 const Landing = ({ onDestinationSelect }: LandingProps) => {
-	const [searchQuery, setSearchQuery] = useState("")
+	const [searchTerm, setSearchTerm] = useState("")
 
 	const filteredDestinations = destinations.filter(
 		(dest) =>
-			dest.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-			dest.country.toLowerCase().includes(searchQuery.toLowerCase())
+			dest.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+			dest.country.toLowerCase().includes(searchTerm.toLowerCase())
 	)
 
 	// Split destinations into 3 columns
@@ -111,7 +110,7 @@ const Landing = ({ onDestinationSelect }: LandingProps) => {
 	const DestinationCard = ({ destination }: { destination: Destination }) => (
 		<button
 			onClick={() => onDestinationSelect(destination)}
-			className="group relative overflow-hidden rounded-xl aspect-[4/3] transition-all duration-300 hover:scale-105 hover:shadow-2xl flex-shrink-0 w-full">
+			className="group relative overflow-hidden rounded-xl aspect-[3/2] transition-all duration-300 hover:scale-105 hover:shadow-2xl flex-shrink-0 w-full">
 			<img
 				src={destination.image}
 				alt={`${destination.name}, ${destination.country}`}
@@ -132,31 +131,38 @@ const Landing = ({ onDestinationSelect }: LandingProps) => {
 
 	return (
 		<div className="h-full w-full flex flex-col items-center justify-center p-8 bg-gradient-to-br from-background via-background to-sky-light/10 overflow-hidden">
-			<div className="w-full max-w-6xl space-y-12 relative z-10">
-				{/* Header */}
-				<div className="text-center space-y-4 animate-fade-in">
-					<h1 className="text-6xl font-bold tracking-tight text-foreground">
-						Welcome to AI Trip Planner
+			<div className="animate-fade-in">
+				<div className="text-center h-[15vh]">
+					<h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+						Where do you want to travel?
 					</h1>
-					<p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-						Tell us where you want to go, and we'll generate a
-						perfect itinerary automatically
+					<p className="text-lg text-gray-600 max-w-2xl mx-auto">
+						Choose from amazing destinations and start your
+						adventure
 					</p>
 				</div>
 
-				{/* Search Bar */}
-				<div className="relative max-w-2xl mx-auto animate-scale-in">
-					<Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-					<Input
-						placeholder="Where do you want to go?"
-						value={searchQuery}
-						onChange={(e) => setSearchQuery(e.target.value)}
-						className="h-14 pl-12 pr-4 text-lg border-2 focus:border-primary shadow-lg"
-					/>
+				<div className="max-w-3xl mx-auto mb-10 relative h-[10vh]">
+					<div className="backdrop-blur-xl bg-white/40 rounded-2xl shadow-2xl border border-white/50 p-2">
+						<div className="flex items-center gap-3 px-4">
+							<Search className="w-6 h-6 text-gray-500" />
+							<input
+								type="text"
+								placeholder="Search destinations..."
+								value={searchTerm}
+								onChange={(e) => {
+									setSearchTerm(e.target.value)
+								}}
+								className="flex-1 bg-transparent border-none outline-none text-lg py-4 text-gray-800 placeholder-gray-500"
+								aria-label="Search destinations"
+								autoComplete="off"
+							/>
+						</div>
+					</div>
 				</div>
 
 				{/* Scrolling Destinations Grid */}
-				<div className="grid grid-cols-3 gap-6 h-[500px]">
+				<div className="grid lg:grid-cols-5 md:grid-cols-3 gap-4 h-[64vh]">
 					{/* Column 1 - Scroll Up */}
 					<div className="relative overflow-hidden">
 						<motion.div
@@ -205,6 +211,52 @@ const Landing = ({ onDestinationSelect }: LandingProps) => {
 
 					{/* Column 3 - Scroll Up */}
 					<div className="relative overflow-hidden">
+						<motion.div
+							className="flex flex-col gap-6"
+							animate={{
+								y: [0, -1000],
+							}}
+							transition={{
+								duration: 20,
+								repeat: Infinity,
+								ease: "linear",
+							}}>
+							{[...column3, ...column3].map(
+								(destination, index) => (
+									<DestinationCard
+										key={`col3-${index}`}
+										destination={destination}
+									/>
+								)
+							)}
+						</motion.div>
+					</div>
+
+					{/* Column 4 - Scroll Down */}
+					<div className="relative overflow-hidden lg:block md:hidden">
+						<motion.div
+							className="flex flex-col gap-6"
+							animate={{
+								y: [-1000, 0],
+							}}
+							transition={{
+								duration: 20,
+								repeat: Infinity,
+								ease: "linear",
+							}}>
+							{[...column2, ...column2].map(
+								(destination, index) => (
+									<DestinationCard
+										key={`col2-${index}`}
+										destination={destination}
+									/>
+								)
+							)}
+						</motion.div>
+					</div>
+
+					{/* Column 5 - Scroll Up */}
+					<div className="relative overflow-hidden lg:block md:hidden">
 						<motion.div
 							className="flex flex-col gap-6"
 							animate={{

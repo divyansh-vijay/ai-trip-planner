@@ -1,9 +1,10 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Landing from "@/components/trip-planner/Landing"
-import TripDetails from "@/components/trip-planner/TripDetails"
 import Interests from "@/components/trip-planner/Interests"
 import LoadingAgent from "@/components/trip-planner/LoadingAgent"
+import { FloatingIcons } from "@/components/FloatingIcons"
+import { CityView } from "@/components/CityView"
 
 type Step = "landing" | "details" | "interests" | "loading" | "itinerary"
 
@@ -41,13 +42,6 @@ const Index = () => {
 		setCurrentStep("details")
 	}
 
-	const handleDetailsSubmit = (
-		data: Omit<TripData, "destination" | "interests">
-	) => {
-		setTripData((prev) => ({ ...prev, ...data }))
-		setCurrentStep("interests")
-	}
-
 	const handleInterestsSubmit = (interests: string[]) => {
 		setTripData((prev) => ({ ...prev, interests }))
 		setCurrentStep("loading")
@@ -60,7 +54,8 @@ const Index = () => {
 	}
 
 	return (
-		<div className="fixed inset-0 overflow-hidden bg-background">
+		<div className="fixed inset-0 overflow-hidden">
+			<FloatingIcons />
 			<AnimatePresence mode="wait">
 				{currentStep === "landing" && (
 					<motion.div
@@ -76,8 +71,7 @@ const Index = () => {
 						/>
 					</motion.div>
 				)}
-
-				{currentStep === "details" && (
+				{currentStep === "details" && tripData.destination && (
 					<motion.div
 						key="details"
 						variants={pageVariants}
@@ -86,14 +80,38 @@ const Index = () => {
 						exit="exit"
 						transition={{ duration: 0.4, ease: "easeInOut" }}
 						className="absolute inset-0">
-						<TripDetails
-							destination={tripData.destination!}
-							onSubmit={handleDetailsSubmit}
+						<CityView
+							place={{
+								id: tripData.destination.name,
+								name: tripData.destination.name,
+								country: tripData.destination.country,
+								image: tripData.destination.image,
+								tag:
+									tripData.destination.topFor[0] ||
+									"Featured",
+								description: `Explore ${tripData.destination.name}`,
+								popularMonths:
+									tripData.destination.bestTime.split(", "),
+								avgBudget: {
+									low:
+										parseInt(
+											tripData.destination.avgBudget
+										) - 500,
+									mid: parseInt(
+										tripData.destination.avgBudget
+									),
+									high:
+										parseInt(
+											tripData.destination.avgBudget
+										) + 500,
+								},
+								topInterests: tripData.destination.topFor,
+							}}
 							onBack={() => setCurrentStep("landing")}
+							onSubmit={() => setCurrentStep("interests")}
 						/>
 					</motion.div>
-				)}
-
+				)}{" "}
 				{currentStep === "interests" && (
 					<motion.div
 						key="interests"
@@ -109,7 +127,6 @@ const Index = () => {
 						/>
 					</motion.div>
 				)}
-
 				{currentStep === "loading" && (
 					<motion.div
 						key="loading"
