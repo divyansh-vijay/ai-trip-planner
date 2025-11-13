@@ -191,7 +191,7 @@ const LoadingAgent = ({ tripData }: { tripData: TripData }) => {
       bottomMessageControls.stop()
       const completeTimer = setTimeout(() => {
         setShowResult(true)
-      }, 2500)
+      }, 3500)
       return () => clearTimeout(completeTimer)
     }
   }, [isComplete])
@@ -264,12 +264,12 @@ const LoadingAgent = ({ tripData }: { tripData: TripData }) => {
         <AnimatePresence>
           {!isComplete ? (
             <motion.div
-			className="flex items-center justify-center gap-[90px] h-full w-full"
+			className="flex items-center justify-center gap-[200px] h-full w-full"
               key="loading"
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.5 }}>
               {/* Header */}
-              <div className="text-center space-y-4 mb-12 flex items-center justify-center gap-[50px] flex-col">
+              <div className="text-center space-y-4 mb-12 flex items-center justify-center gap-[10px] flex-col">
                 <div className="flex items-center justify-center gap-3 mb-2">
                   <Sparkles className="h-8 w-8 text-primary animate-pulse" />
                   <h2 className="text-2xl font-semibold text-muted-foreground">
@@ -286,7 +286,7 @@ const LoadingAgent = ({ tripData }: { tripData: TripData }) => {
               <div className="h-full w-fit flex items-center justify-between flex-col">
               <div className="space-y-4 mb-10">
                 <div className="flex items-center justify-between gap-[30px] text-sm">
-                  <span className="text-muted-foreground font-medium">
+                  <span className="text-muted-foreground font-medium text-[22px]">
                     Overall Progress
                   </span>
                   <motion.span

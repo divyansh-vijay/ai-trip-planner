@@ -44,7 +44,7 @@ interface ItineraryResultProps {
   onClose: () => void;
 }
 
-export const ItineraryResult = ({
+export const ItineraryResult = ({ 
   destination,
   backgroundImage,
   accentColor,
@@ -76,13 +76,13 @@ export const ItineraryResult = ({
   const days = parseDays();
 
   return (
-    <div className="fixed inset-0 z-50 animate-fade-in overflow-hidden">
+    <div className="fixed inset-0 z-50 animate-fade-in overflow-hidden text-white">
       {/* Background */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage: `url(${backgroundImage})`,
-          filter: "blur(12px) brightness(0.4)",
+          filter: "blur(0px) brightness(0.4)",
         }}
       />
 
@@ -111,13 +111,13 @@ export const ItineraryResult = ({
             </div>
 
             {/* Budget Overview */}
-            <Card className="bg-card/95 backdrop-blur-sm p-8 mb-8 animate-fade-in" style={{ animationDelay: "0.1s", animationFillMode: "backwards" }}>
+            <Card className="bg-card/95 backdrop-blur-sm p-8 mb-8 animate-fade-in h-[100px]" style={{ animationDelay: "0.1s", animationFillMode: "backwards" }}>
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-2xl font-bold flex items-center gap-2">
-                  <DollarSign className="w-6 h-6" style={{ color: accentColor }} />
+                  <DollarSign className="w-6 h-6" style={{ color: "#4CAF50" }} />
                   Total Budget
                 </h2>
-                <div className="text-3xl font-bold" style={{ color: accentColor }}>
+                <div className="text-3xl font-bold" style={{ color: "#4CAF50" }}>
                   ₹{estimated_total.toLocaleString()}
                 </div>
               </div>
@@ -128,8 +128,8 @@ export const ItineraryResult = ({
               {/* Flight Card */}
               <Card className="bg-card/95 backdrop-blur-sm p-6 animate-fade-in hover:scale-105 transition-transform" style={{ animationDelay: "0.2s", animationFillMode: "backwards" }}>
                 <div className="flex items-start gap-3 mb-4">
-                  <div className="p-3 rounded-full" style={{ backgroundColor: `${accentColor}20` }}>
-                    <Plane className="w-6 h-6" style={{ color: accentColor }} />
+                  <div className="p-3 rounded-full" style={{ backgroundColor: `${"#4CAF50"}20` }}>
+                    <Plane className="w-6 h-6" style={{ color: "#4CAF50" }} />
                   </div>
                   <div>
                     <h3 className="font-semibold text-lg">Flight</h3>
@@ -143,8 +143,8 @@ export const ItineraryResult = ({
               {/* Hotel Card */}
               <Card className="bg-card/95 backdrop-blur-sm p-6 animate-fade-in hover:scale-105 transition-transform" style={{ animationDelay: "0.3s", animationFillMode: "backwards" }}>
                 <div className="flex items-start gap-3 mb-4">
-                  <div className="p-3 rounded-full" style={{ backgroundColor: `${accentColor}20` }}>
-                    <Hotel className="w-6 h-6" style={{ color: accentColor }} />
+                  <div className="p-3 rounded-full" style={{ backgroundColor: `${"#4CAF50"}20` }}>
+                    <Hotel className="w-6 h-6" style={{ color: "#4CAF50" }} />
                   </div>
                   <div>
                     <h3 className="font-semibold text-lg">Hotel</h3>
@@ -154,7 +154,7 @@ export const ItineraryResult = ({
                 <div className="flex items-center justify-between">
                   <div className="text-2xl font-bold">₹{hotel.price.toLocaleString()}</div>
                   <div className="flex items-center gap-1">
-                    <Star className="w-4 h-4 fill-current" style={{ color: accentColor }} />
+                    <Star className="w-4 h-4 fill-current" style={{ color: "#4CAF50" }} />
                     <span className="font-semibold">{hotel.rating}</span>
                   </div>
                 </div>
@@ -164,8 +164,8 @@ export const ItineraryResult = ({
               {/* Activities Card */}
               <Card className="bg-card/95 backdrop-blur-sm p-6 animate-fade-in hover:scale-105 transition-transform" style={{ animationDelay: "0.4s", animationFillMode: "backwards" }}>
                 <div className="flex items-start gap-3 mb-4">
-                  <div className="p-3 rounded-full" style={{ backgroundColor: `${accentColor}20` }}>
-                    <MapPin className="w-6 h-6" style={{ color: accentColor }} />
+                  <div className="p-3 rounded-full" style={{ backgroundColor: `${"#4CAF50"}20` }}>
+                    <MapPin className="w-6 h-6" style={{ color: "#4CAF50" }} />
                   </div>
                   <div>
                     <h3 className="font-semibold text-lg">Activities</h3>
@@ -186,7 +186,7 @@ export const ItineraryResult = ({
             {/* Day by Day Itinerary */}
             <div className="space-y-4 animate-fade-in" style={{ animationDelay: "0.5s", animationFillMode: "backwards" }}>
               <h2 className="text-3xl font-bold text-primary-foreground mb-6 flex items-center gap-2">
-                <Calendar className="w-8 h-8" style={{ color: accentColor }} />
+                <Calendar className="w-8 h-8" style={{ color: "#4CAF50" }} />
                 Day-by-Day Itinerary
               </h2>
 
@@ -199,16 +199,16 @@ export const ItineraryResult = ({
                     <div className="flex items-center gap-4">
                       <div
                         className="w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg"
-                        style={{ backgroundColor: accentColor, color: 'white' }}
+                        style={{ backgroundColor: "#4CAF50", color: 'white' }}
                       >
                         {index + 1}
                       </div>
                       <h3 className="text-xl font-semibold text-left">{day.title}</h3>
                     </div>
                     {expandedDay === index ? (
-                      <ChevronUp className="w-6 h-6" style={{ color: accentColor }} />
+                      <ChevronUp className="w-6 h-6" style={{ color: "#4CAF50" }} />
                     ) : (
-                      <ChevronDown className="w-6 h-6" style={{ color: accentColor }} />
+                      <ChevronDown className="w-6 h-6" style={{ color: "#4CAF50" }} />
                     )}
                   </button>
 
@@ -222,7 +222,7 @@ export const ItineraryResult = ({
                         if (trimmedLine.startsWith('- *') && !trimmedLine.startsWith('- **')) {
                           return (
                             <div key={lineIdx} className="mt-4 mb-2">
-                              <h4 className="font-semibold text-lg" style={{ color: accentColor }}>
+                              <h4 className="font-semibold text-lg" style={{ color: "#4CAF50" }}>
                                 {trimmedLine.replace(/- \*/, '').replace(/\*$/, '')}
                               </h4>
                             </div>
@@ -233,7 +233,7 @@ export const ItineraryResult = ({
                         if (trimmedLine.startsWith('- **') && !trimmedLine.includes(':')) {
                           return (
                             <div key={lineIdx} className="mt-4 mb-2">
-                              <h4 className="font-semibold text-lg" style={{ color: accentColor }}>
+                              <h4 className="font-semibold text-lg" style={{ color: "#4CAF50" }}>
                                 {trimmedLine.replace(/- \*\*/, '').replace(/\*\*$/, '')}
                               </h4>
                             </div>
@@ -246,7 +246,7 @@ export const ItineraryResult = ({
                           const restText = trimmedLine.replace(/- \*\*[^*]+\*\*:?\s*/, '');
                           return (
                             <div key={lineIdx} className="flex gap-3 ml-6">
-                              <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0" style={{ backgroundColor: accentColor }} />
+                              <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0" style={{ backgroundColor: "#4CAF50" }} />
                               <p className="text-sm">
                                 <strong>{boldText}</strong>
                                 {restText && `: ${restText}`}
@@ -276,15 +276,15 @@ export const ItineraryResult = ({
             <div className="mt-12 flex justify-center gap-4 pb-12">
               <Button
                 size="lg"
-                className="px-8 h-14 text-lg font-semibold"
-                style={{ backgroundColor: accentColor }}
+                className="px-8 h-14 text-lg font-semibold rounded-[30px] w-[220px]"
+                style={{ backgroundColor: "#4CAF50" }}
               >
                 Book This Trip
               </Button>
               <Button
                 size="lg"
                 variant="outline"
-                className="px-8 h-14 text-lg font-semibold bg-card/95"
+                className="px-8 h-14 text-lg font-semibold bg-card/95 rounded-[30px] border-white border-2"
                 onClick={onClose}
               >
                 Modify Preferences
