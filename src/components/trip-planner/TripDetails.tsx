@@ -1,7 +1,8 @@
 import { useState } from "react"
 import type { BookingState } from "@/types/TripDetailsType"
 import { BUDGET_OPTIONS } from "@/types/tripConstants"
-import { Calendar, DollarSign, Users, Check } from "lucide-react"
+import { Calendar, DollarSign, Users, Check, IndianRupee } from "lucide-react"
+import { Input } from "../ui/input"
 
 interface BookingPanelProps {
 	accentColor: string
@@ -16,7 +17,7 @@ export const BookingPanel = ({
 }: BookingPanelProps) => {
 	const [booking, setBooking] = useState<BookingState>({
 		dates: { start: null, end: null },
-		budget: "",
+		budget: "2000",
 		travelers: 2,
 		interests: [],
 	})
@@ -77,51 +78,39 @@ export const BookingPanel = ({
 
 				<div>
 					<label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-						<DollarSign className="w-4 h-4" />
+						<IndianRupee className="w-4 h-4" />
 						Budget Range
 					</label>
 					<div className="space-y-2">
-						{BUDGET_OPTIONS.map((option) => (
-							<button
-								key={option.value}
-								className={`w-full px-4 py-3 text-left rounded-lg border-2 transition-all ${
-									booking.budget === option.value
-										? "border-current shadow-sm"
-										: "border-gray-200 hover:border-gray-300"
-								}`}
-								style={
-									booking.budget === option.value
-										? {
-												borderColor: accentColor,
-												backgroundColor: `${accentColor}10`,
-										  }
-										: {}
-								}
-								onClick={() =>
+						<Input
+							type="range"
+							min={1000}
+							max={100000}
+							value={booking.budget}
+							step={1}
+							onChange={(e) =>
+								setBooking((prev) => ({
+									...prev,
+									budget: e.target.value,
+								}))
+							}
+							aria-label="Budget range"
+						/>
+						<div className="flex justify-end items-center">
+							<IndianRupee className="w-4 h-4" />
+							<Input
+								min={1000}
+								max={100000}
+								type="number"
+								className="text-xl w-[120px] outline-hidden border-0 "
+								value={booking.budget}
+								onChange={(e) => {
 									setBooking((prev) => ({
 										...prev,
-										budget: option.value,
+										budget: e.target.value,
 									}))
-								}
-								aria-pressed={booking.budget === option.value}>
-								<div className="flex items-center justify-between">
-									<div>
-										<div className="font-medium text-gray-900 text-sm">
-											{option.label}
-										</div>
-										<div className="text-xs text-gray-500">
-											{option.range}
-										</div>
-									</div>
-									{booking.budget === option.value && (
-										<Check
-											className="w-5 h-5"
-											style={{ color: accentColor }}
-										/>
-									)}
-								</div>
-							</button>
-						))}
+								}}></Input>
+						</div>
 					</div>
 				</div>
 

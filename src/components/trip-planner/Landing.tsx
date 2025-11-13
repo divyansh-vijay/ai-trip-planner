@@ -825,8 +825,11 @@ const Landing = ({ onDestinationSelect }: LandingProps) => {
 			onClick={() => onDestinationSelect(destination)}
 			className={`group relative overflow-hidden cursor-pointer rounded-xl aspect-3/2 transition-all duration-300 hover:shadow-2xl shrink-0 w-full hover:border-4 border-amber-500 ${
 				searchTerm.length > 0 &&
-				destination.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-				"border-4 border-amber-500"
+				destination.name
+					.toLowerCase()
+					.includes(searchTerm.toLowerCase())
+					? "border-4 border-amber-500"
+					: searchTerm.length > 0 && "blur-[2px]"
 			} `}>
 			<img
 				src={destination.image}
