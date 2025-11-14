@@ -58,7 +58,6 @@ interface Destination {
 	avg_budget: string
 	top_for: string
 	country: string
-	colors: string[]
 	image: string
 }
 
@@ -104,7 +103,7 @@ const getAgentMessages = (destinationName: string) => [
 ]
 
 function AgentLoading({ tripData }: { tripData: TripData }) {
-	const [visibleMessages, setVisibleMessages] = useState<number>(0)
+	const [visibleMessages, setVisibleMessages] = useState<number>(1)
 	const destination = tripData.destination
 	const [progress, setProgress] = useState<number>(0)
 	const [isComplete, setIsComplete] = useState(false)
@@ -114,8 +113,6 @@ function AgentLoading({ tripData }: { tripData: TripData }) {
 		() => getAgentMessages(destination?.name || "your destination"),
 		[destination]
 	)
-
-	console.log(destination)
 
 	const planeControls = useAnimation()
 
@@ -127,7 +124,7 @@ function AgentLoading({ tripData }: { tripData: TripData }) {
 
 		const messageTimer = setInterval(() => {
 			setVisibleMessages((prev) => {
-				if (prev >= agentMessages.length) {
+				if (prev >= agentMessages.length + 1) {
 					clearInterval(messageTimer)
 					return prev
 				}
@@ -147,7 +144,7 @@ function AgentLoading({ tripData }: { tripData: TripData }) {
 				}
 				return prev + 1
 			})
-		}, 80)
+		}, 100)
 
 		return () => {
 			clearInterval(messageTimer)
@@ -379,9 +376,8 @@ function AgentLoading({ tripData }: { tripData: TripData }) {
 									<motion.div
 										className="absolute inset-y-0 left-0 rounded-full"
 										style={{
-											background: !destination
-												? `linear-gradient(90deg, ${destination.colors[0]}, ${destination.colors[1]})`
-												: "linear-gradient(90deg, #3B82F6, #1E40AF)",
+											background:
+												"linear-gradient(90deg, #3B82F6, #1E40AF)",
 										}}
 										initial={{ width: 0 }}
 										animate={{ width: `${progress}%` }}

@@ -936,7 +936,7 @@ const Landing = ({ onDestinationSelect }: LandingProps) => {
 							className="flex flex-col gap-6 max-h-[200vh]"
 							animate={{
 								y: getSelectedDestinationOffset(column2) ?? [
-									-5900, 0,
+									-5000, 0,
 								],
 							}}
 							transition={{
@@ -1012,7 +1012,7 @@ const Landing = ({ onDestinationSelect }: LandingProps) => {
 							className="flex flex-col gap-6 max-h-[200vh]"
 							animate={{
 								y: getSelectedDestinationOffset(column4) ?? [
-									-5900, 0,
+									-5000, 0,
 								],
 							}}
 							transition={{
