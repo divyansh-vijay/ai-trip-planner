@@ -788,9 +788,18 @@ const Landing = ({ onDestinationSelect }: LandingProps) => {
 	// )
 
 	// Split destinations into 3 columns
-	const column1 = filteredDestinations.slice(0, 15)
-	const column2 = filteredDestinations.slice(15, 30)
-	const column3 = filteredDestinations.slice(30, 45)
+	const column1 =
+		window.innerWidth < 1024
+			? filteredDestinations.slice(0, 25)
+			: filteredDestinations.slice(0, 15)
+	const column2 =
+		window.innerWidth < 1024
+			? filteredDestinations.slice(25, 50)
+			: filteredDestinations.slice(15, 30)
+	const column3 =
+		window.innerWidth < 1024
+			? filteredDestinations.slice(50, 75)
+			: filteredDestinations.slice(30, 45)
 	const column4 = filteredDestinations.slice(45, 60)
 	const column5 = filteredDestinations.slice(60, 71)
 
@@ -815,9 +824,10 @@ const Landing = ({ onDestinationSelect }: LandingProps) => {
 		// else cardHeight = 210 // desktop
 
 		// return -(index * cardHeight)
-		return -(index * (window.innerWidth / 8))
+		return window.innerWidth < 1024
+			? -(index * 210)
+			: -(index * (window.innerWidth / 8))
 		// Each card is approximately 230px (aspect-[3/2] ~150px + gap 24px + padding)
-		// return -(index * 210)
 	}
 
 	const DestinationCard = ({ destination }: { destination: Destination }) => (
@@ -851,7 +861,7 @@ const Landing = ({ onDestinationSelect }: LandingProps) => {
 
 	return (
 		<div className="h-full w-full flex flex-col items-center justify-center p-8 bg-linear-to-br from-background via-background to-sky-light/10 overflow-hidden">
-			<div className="animate-fade-in">
+			<div className="animate-fade-in relative">
 				<div className="text-center h-[20vh] flex flex-col justify-center gap-6 mb-10">
 					<h1 className="text-4xl md:text-5xl font-bold text-gray-800">
 						Where do you want to travel?
@@ -877,11 +887,12 @@ const Landing = ({ onDestinationSelect }: LandingProps) => {
 						</div>
 					</div>
 				</div>
-
 				{/* Scrolling Destinations Grid */}
-				<div className="grid lg:grid-cols-5 md:grid-cols-3 gap-4 h-[64vh]">
+				<div className="grid lg:grid-cols-5 relative md:grid-cols-3 grid-cols-3 gap-4 h-[64vh]">
+					<div className="absolute w-full h-20 -top-3 bg-linear-to-t via-black/30  z-100 pointer-events-none"></div>
+					<div className="absolute w-full h-20 -bottom-3 bg-linear-to-t via-black/30  z-100 pointer-events-none"></div>
 					{/* Column 1 - Scroll Up */}
-					<div className="relative overflow-y-scroll scrollbar-hide">
+					<div className="relative overflow-y-hidden scrollbar-hide">
 						<motion.div
 							className="flex flex-col gap-6 max-h-[200vh]"
 							ref={col1Ref}
@@ -919,7 +930,7 @@ const Landing = ({ onDestinationSelect }: LandingProps) => {
 					</div>
 
 					{/* Column 2 - Scroll Down */}
-					<div className="relative overflow-y-scroll scrollbar-hide">
+					<div className="relative overflow-y-hidden scrollbar-hide">
 						<motion.div
 							ref={col2Ref}
 							className="flex flex-col gap-6 max-h-[200vh]"
@@ -957,7 +968,7 @@ const Landing = ({ onDestinationSelect }: LandingProps) => {
 					</div>
 
 					{/* Column 3 - Scroll Up */}
-					<div className="relative overflow-y-scroll scrollbar-hide">
+					<div className="relative overflow-y-hidden scrollbar-hide">
 						<motion.div
 							ref={col3Ref}
 							className="flex flex-col gap-6 max-h-[200vh]"
@@ -995,7 +1006,7 @@ const Landing = ({ onDestinationSelect }: LandingProps) => {
 					</div>
 
 					{/* Column 4 - Scroll Down */}
-					<div className="relative overflow-y-scroll scrollbar-hide lg:block md:hidden">
+					<div className="relative overflow-y-hidden scrollbar-hide lg:block hidden">
 						<motion.div
 							ref={col4Ref}
 							className="flex flex-col gap-6 max-h-[200vh]"
@@ -1033,7 +1044,7 @@ const Landing = ({ onDestinationSelect }: LandingProps) => {
 					</div>
 
 					{/* Column 5 - Scroll Up */}
-					<div className="relative overflow-y-scroll scrollbar-hide lg:block md:hidden">
+					<div className="relative overflow-y-hidden scrollbar-hide lg:block hidden">
 						<motion.div
 							ref={col5Ref}
 							className="flex flex-col gap-6 max-h-[200vh]"

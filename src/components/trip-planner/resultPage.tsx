@@ -47,7 +47,6 @@ interface ItineraryResultProps {
 export const ItineraryResult = ({ 
   destination,
   backgroundImage,
-  accentColor,
   data,
   onClose,
 }: ItineraryResultProps) => {

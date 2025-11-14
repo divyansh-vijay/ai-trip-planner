@@ -13,6 +13,7 @@ interface Destination {
 	country: string
 	image: string
 	description: string
+	nickname: string
 	best_time: string
 	avg_budget: string
 	top_for: string

@@ -2,7 +2,7 @@ export interface Place {
 	id: string
 	name: string
 	tag: string
-	top_for: string
+	// top_for: string
 	image: string
 	country: string
 	description: string

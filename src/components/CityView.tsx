@@ -55,9 +55,9 @@ export const CityView = ({ place, onBack, onSubmit }: CityViewProps) => {
 			animate={{ opacity: 1 }}
 			exit={{ opacity: 0 }}
 			transition={{ duration: motionConfig.transition.duration }}>
-			<div className="h-screen flex">
+			<div className="h-screen overflow-auto flex max-md:flex-col">
 				<motion.div
-					className="flex-1 relative"
+					className="flex-1 relative min-h-[450px]"
 					initial={{ x: -100, opacity: 0 }}
 					animate={{ x: 0, opacity: 1 }}
 					transition={{
@@ -103,7 +103,7 @@ export const CityView = ({ place, onBack, onSubmit }: CityViewProps) => {
 								</span>
 							</div>
 
-							<h1 className="text-6xl font-bold text-white mb-3">
+							<h1 className="text-6xl max-md:text-3xl font-bold text-white mb-3">
 								{place.name}
 							</h1>
 
@@ -158,7 +158,7 @@ export const CityView = ({ place, onBack, onSubmit }: CityViewProps) => {
 				</motion.div>
 
 				<motion.div
-					className="w-[500px] shrink-0 bg-gray-50 overflow-y-auto flex items-center justify-center p-8"
+					className="w-[500px] max-md:w-[100%] shrink-0 bg-gray-50 overflow-y-auto flex items-center justify-center p-8 max-md:p-0 "
 					initial={{ x: 100, opacity: 0 }}
 					animate={{ x: 0, opacity: 1 }}
 					transition={{
