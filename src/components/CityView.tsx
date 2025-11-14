@@ -27,9 +27,15 @@ interface CityViewProps {
 	place: Place
 	onSubmit: () => void
 	onBack: () => void
+	setTripData: React.Dispatch<React.SetStateAction<any>>
 }
 
-export const CityView = ({ place, onBack, onSubmit }: CityViewProps) => {
+export const CityView = ({
+	place,
+	onBack,
+	onSubmit,
+	setTripData,
+}: CityViewProps) => {
 	const [accentColor, setAccentColor] = useState("#2563EB")
 	const [textColor, setTextColor] = useState("#FFFFFF")
 
@@ -170,6 +176,7 @@ export const CityView = ({ place, onBack, onSubmit }: CityViewProps) => {
 						accentColor={accentColor}
 						onSubmit={onSubmit}
 						textColor={textColor}
+						setTripData={setTripData}
 					/>
 				</motion.div>
 			</div>

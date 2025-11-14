@@ -10,46 +10,6 @@ import {
 import { ItineraryResult } from "./resultPage"
 // import { Destination } from ""
 
-const mockResultData = {
-	agents: {
-		optimizer: {
-			flight: { option: "Air France - Economy", price: 45000, score: 92 },
-			hotel: { name: "Le Meurice", price: 12000, rating: 4.8, score: 88 },
-			activities: [
-				{
-					name: "Louvre Museum Tour",
-					price: 3000,
-					type: "Art",
-					score: 85,
-				},
-				{
-					name: "Eiffel Tower Dinner",
-					price: 5000,
-					type: "Romance",
-					score: 90,
-				},
-				{
-					name: "Seine River Cruise",
-					price: 2500,
-					type: "Relax",
-					score: 80,
-				},
-			],
-			estimated_total: 97500,
-		},
-	},
-	itinerary: `### Day 1: Arrival & City Walk
-- **Morning**: Arrive in Paris, check into hotel
-- **Afternoon**: Walk around Champs-Élysées
-- **Evening**: Seine River Cruise
-
-### Day 2: Art & Culture
-- **Morning**: Visit Louvre Museum
-- **Afternoon**: Explore Montmartre
-- **Evening**: Eiffel Tower Dinner
-`,
-}
-
 interface Destination {
 	name: string
 	nickname: string
@@ -107,7 +67,54 @@ function AgentLoading({ tripData }: { tripData: TripData }) {
 	const destination = tripData.destination
 	const [progress, setProgress] = useState<number>(0)
 	const [isComplete, setIsComplete] = useState(false)
+	const [data, setData] = useState<any>(null)
 	const [showResult, setShowResult] = useState(false)
+
+	useEffect(() => {
+		const fetchData = async () => {
+			console.log("Sending trip data to backend:", tripData)
+			// Simulate data fetching delay
+
+			const start = new Date(tripData.startDate)
+			const end = new Date(tripData.endDate)
+
+			const diffInDays = Math.ceil(
+				(end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)
+			)
+
+			const res = await fetch(
+				"https://web-production-ff53.up.railway.app/plan_trip",
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						destination: tripData.destination?.name,
+						days: diffInDays + 1,
+						budget: tripData.budget,
+						travellers: tripData.travelers,
+						start_date: tripData.startDate,
+						end_date: tripData.endDate,
+						interests: [...tripData.interests],
+					}),
+				}
+			)
+			const data = await res.json()
+			setData(data)
+			setProgress(100)
+			setIsComplete(true)
+			setTimeout(() => {
+				setShowResult(true)
+			}, 1000)
+
+			console.log("Fetched trip plan data:", data)
+		}
+
+		if (tripData) {
+			fetchData()
+		}
+	}, [tripData])
 
 	const agentMessages = useMemo(
 		() => getAgentMessages(destination?.name || "your destination"),
@@ -130,21 +137,17 @@ function AgentLoading({ tripData }: { tripData: TripData }) {
 				}
 				return prev + 1
 			})
-		}, 2000)
+		}, 5000)
 
 		const progressTimer = setInterval(() => {
 			setProgress((prev) => {
 				if (prev >= 100) {
 					clearInterval(progressTimer)
-					setIsComplete(true)
-					setTimeout(() => {
-						setShowResult(true)
-					}, 1000)
 					return 100
 				}
 				return prev + 1
 			})
-		}, 100)
+		}, 300)
 
 		return () => {
 			clearInterval(messageTimer)
@@ -167,8 +170,7 @@ function AgentLoading({ tripData }: { tripData: TripData }) {
 						tripData.destination?.name || "Your Destination"
 					}
 					backgroundImage="https://images.unsplash.com/photo-1502602898657-3e91760cbb34"
-					accentColor="#ff4d6d"
-					data={mockResultData}
+					data={data}
 					onClose={() => window.location.reload()}
 				/>
 			</motion.div>

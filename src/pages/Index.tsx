@@ -99,6 +99,7 @@ const Index = () => {
 							}}
 							onBack={() => setCurrentStep("landing")}
 							onSubmit={() => setCurrentStep("interests")}
+							setTripData={setTripData}
 						/>
 					</motion.div>
 				)}{" "}

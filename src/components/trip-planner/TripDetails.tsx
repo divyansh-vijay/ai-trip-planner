@@ -7,12 +7,14 @@ interface BookingPanelProps {
 	accentColor: string
 	onSubmit: () => void
 	textColor: string
+	setTripData: React.Dispatch<React.SetStateAction<any>>
 }
 
 export const BookingPanel = ({
 	accentColor,
 	onSubmit,
 	textColor,
+	setTripData,
 }: BookingPanelProps) => {
 	const [booking, setBooking] = useState<BookingState>({
 		dates: { start: null, end: null },
@@ -42,7 +44,7 @@ export const BookingPanel = ({
 									"--tw-ring-color": accentColor,
 								} as React.CSSProperties
 							}
-							onChange={(e) =>
+							onChange={(e) => {
 								setBooking((prev) => ({
 									...prev,
 									dates: {
@@ -50,7 +52,11 @@ export const BookingPanel = ({
 										start: new Date(e.target.value),
 									},
 								}))
-							}
+								setTripData((prev: any) => ({
+									...prev,
+									startDate: e.target.value,
+								}))
+							}}
 							aria-label="Start date"
 						/>
 						<input
@@ -61,7 +67,7 @@ export const BookingPanel = ({
 									"--tw-ring-color": accentColor,
 								} as React.CSSProperties
 							}
-							onChange={(e) =>
+							onChange={(e) => {
 								setBooking((prev) => ({
 									...prev,
 									dates: {
@@ -69,7 +75,11 @@ export const BookingPanel = ({
 										end: new Date(e.target.value),
 									},
 								}))
-							}
+								setTripData((prev: any) => ({
+									...prev,
+									endDate: e.target.value,
+								}))
+							}}
 							aria-label="End date"
 						/>
 					</div>
@@ -87,12 +97,16 @@ export const BookingPanel = ({
 							max={100000}
 							value={booking.budget}
 							step={1}
-							onChange={(e) =>
+							onChange={(e) => {
 								setBooking((prev) => ({
 									...prev,
 									budget: e.target.value,
 								}))
-							}
+								setTripData((prev: any) => ({
+									...prev,
+									budget: e.target.value,
+								}))
+							}}
 							aria-label="Budget range"
 						/>
 						<div className="flex justify-end items-center">
@@ -105,6 +119,10 @@ export const BookingPanel = ({
 								value={booking.budget}
 								onChange={(e) => {
 									setBooking((prev) => ({
+										...prev,
+										budget: e.target.value,
+									}))
+									setTripData((prev: any) => ({
 										...prev,
 										budget: e.target.value,
 									}))
@@ -121,12 +139,16 @@ export const BookingPanel = ({
 					<div className="flex items-center gap-4">
 						<button
 							className="w-10 h-10 rounded-lg border-2 border-gray-200 hover:border-gray-300 flex items-center justify-center font-medium text-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-							onClick={() =>
+							onClick={() => {
 								setBooking((prev) => ({
 									...prev,
 									travelers: Math.max(1, prev.travelers - 1),
 								}))
-							}
+								setTripData((prev: any) => ({
+									...prev,
+									travelers: Math.max(1, prev.travelers - 1),
+								}))
+							}}
 							disabled={booking.travelers <= 1}
 							aria-label="Decrease travelers">
 							−
@@ -136,12 +158,16 @@ export const BookingPanel = ({
 						</span>
 						<button
 							className="w-10 h-10 rounded-lg border-2 border-gray-200 hover:border-gray-300 flex items-center justify-center font-medium text-gray-700 transition-colors"
-							onClick={() =>
+							onClick={() => {
 								setBooking((prev) => ({
 									...prev,
 									travelers: prev.travelers + 1,
 								}))
-							}
+								setTripData((prev: any) => ({
+									...prev,
+									travelers: prev.travelers + 1,
+								}))
+							}}
 							aria-label="Increase travelers">
 							+
 						</button>
